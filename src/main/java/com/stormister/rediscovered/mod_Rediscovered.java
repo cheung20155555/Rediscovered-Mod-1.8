@@ -61,6 +61,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
  * -Locked Chest URL leads to identical April Fools page
  * -Chairs, Tables, and Lecterns use JSON model format
  * -Added French, Spanish, and Hungarian translations
+ * -Added option to disable quivers
  */
 
 public class mod_Rediscovered
@@ -152,6 +153,7 @@ public class mod_Rediscovered
     public static int HeavenBiomeID;
     public static boolean EnablePigmanVillages;
     public static boolean EnableSpongeGenerate;
+    public static boolean EnableQuivers;
     public static boolean EnableDungeonLoot;
     public static boolean EnableRubyOre;
     public static boolean anmen;
@@ -216,12 +218,14 @@ public class mod_Rediscovered
         Gear = (new BlockGear()).setHardness(1.0F).setStepSound(Block.soundTypeMetal);
         
         //Items
-        Quiver = (new ItemQuiver( EnumArmorMaterialInvinc, 0, 1, "Quiver")).setCreativeTab(CreativeTabs.tabCombat);
-        LeatherQuiver = (new ItemQuiver( ArmorMaterial.LEATHER, 0, 1, "LeatherQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
-        ChainQuiver = (new ItemQuiver( ArmorMaterial.CHAIN, 0, 1, "ChainQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
-        GoldQuiver = (new ItemQuiver( ArmorMaterial.GOLD, 0, 1, "GoldQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
-        IronQuiver = (new ItemQuiver( ArmorMaterial.IRON, 0, 1, "IronQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
-        DiamondQuiver = (new ItemQuiver( ArmorMaterial.DIAMOND, 0, 1, "DiamondQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
+        if(EnableQuivers){
+	        Quiver = (new ItemQuiver( EnumArmorMaterialInvinc, 0, 1, "Quiver")).setCreativeTab(CreativeTabs.tabCombat);
+	        LeatherQuiver = (new ItemQuiver( ArmorMaterial.LEATHER, 0, 1, "LeatherQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
+	        ChainQuiver = (new ItemQuiver( ArmorMaterial.CHAIN, 0, 1, "ChainQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
+	        GoldQuiver = (new ItemQuiver( ArmorMaterial.GOLD, 0, 1, "GoldQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
+	        IronQuiver = (new ItemQuiver( ArmorMaterial.IRON, 0, 1, "IronQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
+	        DiamondQuiver = (new ItemQuiver( ArmorMaterial.DIAMOND, 0, 1, "DiamondQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
+        }
         LeatherChainHelmet = (new ItemLC( EnumArmorMaterialLC, 0, 0)).setCreativeTab(CreativeTabs.tabCombat);
         LeatherChainChest = (new ItemLC( EnumArmorMaterialLC, 0, 1)).setCreativeTab(CreativeTabs.tabCombat);
         LeatherChainLegs = (new ItemLC( EnumArmorMaterialLC, 0, 2)).setCreativeTab(CreativeTabs.tabCombat);
@@ -281,13 +285,15 @@ public class mod_Rediscovered
     		registerBlockRenders(CherrySapling, "CherrySapling");
     		registerBlockRenders(CherryStairs, "CherryStairs");
     		registerBlockRenders(Gear, "GearWall");    		
-
-    		registerItemRenders(Quiver, "Quiver");
-    		registerItemRenders(LeatherQuiver, "LeatherQuiver");
-    		registerItemRenders(ChainQuiver, "ChainQuiver");
-    		registerItemRenders(GoldQuiver, "GoldQuiver");
-    		registerItemRenders(IronQuiver, "IronQuiver");
-    		registerItemRenders(DiamondQuiver, "DiamondQuiver");
+    		
+    		if(EnableQuivers){
+		    	registerItemRenders(Quiver, "Quiver");
+		    	registerItemRenders(LeatherQuiver, "LeatherQuiver");
+		    	registerItemRenders(ChainQuiver, "ChainQuiver");
+		    	registerItemRenders(GoldQuiver, "GoldQuiver");
+		    	registerItemRenders(IronQuiver, "IronQuiver");
+		    	registerItemRenders(DiamondQuiver, "DiamondQuiver");
+    		}
     		registerItemRenders(LeatherChainHelmet, "LeatherChainHelmet");
     		registerItemRenders(LeatherChainChest, "LeatherChainChest");
     		registerItemRenders(LeatherChainLegs, "LeatherChainLegs");
@@ -326,17 +332,19 @@ public class mod_Rediscovered
     }   
     //Recipes
     public void registerRecipes(){
-    	GameRegistry.addShapedRecipe(new ItemStack(Quiver), "FLL", "SLL", "SLL", 'F', Items.feather, 'S', Items.string, 'L', Items.leather);
-        GameRegistry.addShapelessRecipe(new ItemStack(LeatherQuiver, 1), new Object[]{Quiver, Items.leather_chestplate});
-        GameRegistry.addShapedRecipe(new ItemStack(Items.leather_chestplate), "Q", 'Q', LeatherQuiver);
-        GameRegistry.addShapelessRecipe(new ItemStack(ChainQuiver, 1), new Object[]{Quiver, Items.chainmail_chestplate});
-        GameRegistry.addShapedRecipe(new ItemStack(Items.chainmail_chestplate), "Q", 'Q', ChainQuiver);
-        GameRegistry.addShapelessRecipe(new ItemStack(GoldQuiver, 1), new Object[]{Quiver, Items.golden_chestplate});
-        GameRegistry.addShapedRecipe(new ItemStack(Items.golden_chestplate), "Q", 'Q', GoldQuiver);
-        GameRegistry.addShapelessRecipe(new ItemStack(IronQuiver, 1), new Object[]{Quiver, Items.iron_chestplate});
-        GameRegistry.addShapedRecipe(new ItemStack(Items.iron_chestplate), "Q", 'Q', IronQuiver);
-        GameRegistry.addShapelessRecipe(new ItemStack(DiamondQuiver, 1), new Object[]{Quiver, Items.diamond_chestplate});
-        GameRegistry.addShapedRecipe(new ItemStack(Items.diamond_chestplate), "Q", 'Q', DiamondQuiver);
+    	if(EnableQuivers){
+	    	GameRegistry.addShapedRecipe(new ItemStack(Quiver), "FLL", "SLL", "SLL", 'F', Items.feather, 'S', Items.string, 'L', Items.leather);
+	        GameRegistry.addShapelessRecipe(new ItemStack(LeatherQuiver, 1), new Object[]{Quiver, Items.leather_chestplate});
+	        GameRegistry.addShapedRecipe(new ItemStack(Items.leather_chestplate), "Q", 'Q', LeatherQuiver);
+	        GameRegistry.addShapelessRecipe(new ItemStack(ChainQuiver, 1), new Object[]{Quiver, Items.chainmail_chestplate});
+	        GameRegistry.addShapedRecipe(new ItemStack(Items.chainmail_chestplate), "Q", 'Q', ChainQuiver);
+	        GameRegistry.addShapelessRecipe(new ItemStack(GoldQuiver, 1), new Object[]{Quiver, Items.golden_chestplate});
+	        GameRegistry.addShapedRecipe(new ItemStack(Items.golden_chestplate), "Q", 'Q', GoldQuiver);
+	        GameRegistry.addShapelessRecipe(new ItemStack(IronQuiver, 1), new Object[]{Quiver, Items.iron_chestplate});
+	        GameRegistry.addShapedRecipe(new ItemStack(Items.iron_chestplate), "Q", 'Q', IronQuiver);
+	        GameRegistry.addShapelessRecipe(new ItemStack(DiamondQuiver, 1), new Object[]{Quiver, Items.diamond_chestplate});
+	        GameRegistry.addShapedRecipe(new ItemStack(Items.diamond_chestplate), "Q", 'Q', DiamondQuiver);
+    	}
         GameRegistry.addShapedRecipe(new ItemStack(LeatherChainHelmet), "L", "C", 'L', Items.leather_helmet, 'C', Items.chainmail_helmet);
         GameRegistry.addShapedRecipe(new ItemStack(LeatherChainChest), "L", "C", 'L', Items.leather_chestplate, 'C', Items.chainmail_chestplate);
         GameRegistry.addShapedRecipe(new ItemStack(LeatherChainLegs), "L", "C", 'L', Items.leather_leggings, 'C', Items.chainmail_leggings);
@@ -490,6 +498,7 @@ public class mod_Rediscovered
         
         //Booleans
         EnableSpongeGenerate = c.get("Options", "Enable Sponges Appear in Ocean", true).getBoolean(true);
+        EnableQuivers = c.get("Options", "Enable Quivers", true).getBoolean(true);
         EnableDungeonLoot = c.get("Options", "Enable Lanterns appear in Dungeon Chests", true).getBoolean(true);
         EnableRubyOre = c.get("Options", "Enable Ruby Ore Generates Underground", true).getBoolean(true);
         EnablePigmanVillages = c.get("Options", "Enable Pigman Villages in the Sky Dimension", true).getBoolean(true);
