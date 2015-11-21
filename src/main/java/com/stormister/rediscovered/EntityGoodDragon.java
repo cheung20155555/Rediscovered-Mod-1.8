@@ -6,19 +6,27 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIFollowOwner;
+import net.minecraft.entity.ai.EntityAIOwnerHurtByTarget;
+import net.minecraft.entity.ai.EntityAIOwnerHurtTarget;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -28,7 +36,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityGoodDragon extends EntityCreature implements IEntityMultiPartRed, IMob
+public class EntityGoodDragon extends EntityTameable implements IEntityMultiPartRed, IMob
 {
     public double targetX;
     public double targetY;
@@ -91,6 +99,9 @@ public class EntityGoodDragon extends EntityCreature implements IEntityMultiPart
     public EntityGoodDragon(World par1World)
     {
         super(par1World);
+        this.tasks.addTask(5, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+        this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
+        this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
         this.dragonPartArray = new EntityGoodDragonPart[] {this.dragonPartHead = new EntityGoodDragonPart(this, "head", 6.0F, 6.0F), this.dragonPartBody = new EntityGoodDragonPart(this, "body", 8.0F, 8.0F), this.dragonPartTail1 = new EntityGoodDragonPart(this, "tail", 4.0F, 4.0F), this.dragonPartTail2 = new EntityGoodDragonPart(this, "tail", 4.0F, 4.0F), this.dragonPartTail3 = new EntityGoodDragonPart(this, "tail", 4.0F, 4.0F), this.dragonPartWing1 = new EntityGoodDragonPart(this, "wing", 4.0F, 4.0F), this.dragonPartWing2 = new EntityGoodDragonPart(this, "wing", 4.0F, 4.0F), this.dragonPartTailSpike1 = new EntityGoodDragonPart(this, "tail", 2.0F, 2.0F), this.dragonPartTailSpike2 = new EntityGoodDragonPart(this, "tail", 2.0F, 2.0F), this.dragonPartTailSpike3 = new EntityGoodDragonPart(this, "tail", 2.0F, 2.0F), this.dragonPartTailSpike4 = new EntityGoodDragonPart(this, "tail", 2.0F, 2.0F), this.dragonPartTailSpike5 = new EntityGoodDragonPart(this, "tail", 2.0F, 2.0F)};
         this.setHealth(this.getMaxHealth());
         this.setSize(16.0F, 8.0F);
@@ -526,6 +537,52 @@ public class EntityGoodDragon extends EntityCreature implements IEntityMultiPart
     {
         return (float)MathHelper.wrapAngleTo180_double(par1);
     }
+    
+    public boolean interactSpecial(EntityPlayer par1EntityPlayer)
+    {
+    	ItemStack itemstack = par1EntityPlayer.getCurrentEquippedItem();
+    	if (!this.isTamed() && itemstack != null && itemstack.getItem() == Items.bone)
+        {
+            if (!par1EntityPlayer.capabilities.isCreativeMode)
+            {
+                --itemstack.stackSize;
+            }
+
+            if (itemstack.stackSize <= 0)
+            {
+            	par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+            }
+
+            if (!this.worldObj.isRemote)
+            {
+                if (this.rand.nextInt(3) == 0)
+                {
+                	par1EntityPlayer.addChatComponentMessage(new ChatComponentTranslation("You tamed me! Ah!", new Object[0]));
+                    this.setTamed(true);
+                    this.navigator.clearPathEntity();
+                    this.setAttackTarget((EntityLivingBase)null);
+//                    this.aiSit.setSitting(true);
+                    this.setOwnerId(par1EntityPlayer.getUniqueID().toString());
+                    this.playTameEffect(true);
+                    this.worldObj.setEntityState(this, (byte)7);
+                }
+                else
+                {
+                	par1EntityPlayer.addChatComponentMessage(new ChatComponentTranslation("Try Again!", new Object[0]));
+                    this.playTameEffect(false);
+                    this.worldObj.setEntityState(this, (byte)6);
+                }
+            }
+
+            return true;
+        }
+    	else
+    	{
+    		if(this.riddenByEntity == null)
+    			this.mount(par1EntityPlayer);
+    	}
+    	return true;
+    }
     /**
      * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
      */
@@ -825,4 +882,9 @@ public class EntityGoodDragon extends EntityCreature implements IEntityMultiPart
     {
         return this.worldObj;
     }
+
+	@Override
+	public EntityAgeable createChild(EntityAgeable ageable) {
+		return null;
+	}
 }

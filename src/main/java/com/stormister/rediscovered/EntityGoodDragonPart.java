@@ -1,10 +1,14 @@
 package com.stormister.rediscovered;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.boss.EntityDragonPart;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 
 public class EntityGoodDragonPart extends Entity
@@ -57,9 +61,7 @@ public class EntityGoodDragonPart extends Entity
     @Override
     public boolean interactFirst(EntityPlayer par1EntityPlayer)
     {
-//    	par1EntityPlayer.addChatComponentMessage(new ChatComponentTranslation("You right clicked me! Ah!", new Object[0]));
-    	entityDragonObj.mount(par1EntityPlayer);
-    	return true;
+    	return entityDragonObj.interactSpecial(par1EntityPlayer);
     }
 
     /**
