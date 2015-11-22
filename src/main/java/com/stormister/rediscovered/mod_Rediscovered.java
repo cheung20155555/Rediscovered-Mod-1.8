@@ -60,7 +60,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
  * -Made Gears more efficient (only one block type for all sides, not seperate for wall and floor)
  * -Locked Chest URL leads to identical April Fools page
  * -Chairs, Tables, and Lecterns use JSON model format
- * -Added French, Spanish, and Hungarian translations
+ * -Added French, Spanish, Traditional Chinese, and Hungarian translations
  * -Added option to disable quivers
  */
 
