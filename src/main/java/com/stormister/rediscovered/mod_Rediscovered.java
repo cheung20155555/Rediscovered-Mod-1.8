@@ -53,15 +53,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
  
-@Mod(modid = mod_Rediscovered.modid, name = "Minecraft Rediscovered Mod", version = "1.2")
+@Mod(modid = mod_Rediscovered.modid, name = "Minecraft Rediscovered Mod", version = "1.2.1")
 
 /*
- * Current Changelog - 1.2
- * -Made Gears more efficient (only one block type for all sides, not seperate for wall and floor)
- * -Locked Chest URL leads to identical April Fools page
- * -Chairs, Tables, and Lecterns use JSON model format
- * -Added French, Spanish, Traditional Chinese, and Hungarian translations
- * -Added option to disable quivers
+ * Current Changelog - 1.2.1
  */
 
 public class mod_Rediscovered
