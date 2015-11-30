@@ -57,6 +57,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /*
  * Current Changelog - 1.2.1
+ * -Changed potions (Mining is now Dullness)
  */
 
 public class mod_Rediscovered
@@ -226,9 +227,9 @@ public class mod_Rediscovered
         LeatherChainLegs = (new ItemLC( EnumArmorMaterialLC, 0, 2)).setCreativeTab(CreativeTabs.tabCombat);
         LeatherChainBoots = (new ItemLC( EnumArmorMaterialLC, 0, 3)).setCreativeTab(CreativeTabs.tabCombat);
         gemRuby = (new ItemRuby()).setCreativeTab(CreativeTabs.tabMaterials);
-        Nausea = (new ItemNauseaPotion(0, 1.0F, false, "nausea"));
-        Mining = (new ItemMiningPotion(0, 1.0F, false, "mining"));
-        Blindness = (new ItemBlindnessPotion(0, 1.0F, false, "blindness"));
+        Nausea = (new ItemPotionNausea(0, 1.0F, false));
+        Mining = (new ItemPotionDullness(0, 1.0F, false));
+        Blindness = (new ItemPotionBlindness(0, 1.0F, false));
         ItemLantern = new ItemLantern();
 		Scarecrow = (new ItemScarecrow()).setCreativeTab(CreativeTabs.tabDecorations);
 		DreamPillow = (new ItemDreamPillow()).setCreativeTab(CreativeTabs.tabMisc);
