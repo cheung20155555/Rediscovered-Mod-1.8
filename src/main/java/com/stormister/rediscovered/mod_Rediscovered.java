@@ -89,10 +89,10 @@ public class mod_Rediscovered
     public static Item LeatherChainBoots;
     public static Item Nausea;
     public static Item Blindness;
-    public static Item Mining;
+    public static Item Dullness;
     public static Item NauseaSplash;
     public static Item BlindnessSplash;
-    public static Item MiningSplash;
+    public static Item DullnessSplash;
     public static Block Sponge;
     public static Block RubyOre;
     public static Block RubyBlock;
@@ -228,8 +228,11 @@ public class mod_Rediscovered
         LeatherChainBoots = (new ItemLC( EnumArmorMaterialLC, 0, 3)).setCreativeTab(CreativeTabs.tabCombat);
         gemRuby = (new ItemRuby()).setCreativeTab(CreativeTabs.tabMaterials);
         Nausea = (new ItemPotionNausea(0, 1.0F, false));
-        Mining = (new ItemPotionDullness(0, 1.0F, false));
+        NauseaSplash = (new ItemPotionNausea(0, 1.0F, true));
         Blindness = (new ItemPotionBlindness(0, 1.0F, false));
+        BlindnessSplash = (new ItemPotionBlindness(0, 1.0F, true));
+        Dullness = (new ItemPotionDullness(0, 1.0F, false));
+        DullnessSplash = (new ItemPotionDullness(0, 1.0F, true));
         ItemLantern = new ItemLantern();
 		Scarecrow = (new ItemScarecrow()).setCreativeTab(CreativeTabs.tabDecorations);
 		DreamPillow = (new ItemDreamPillow()).setCreativeTab(CreativeTabs.tabMisc);
@@ -296,8 +299,11 @@ public class mod_Rediscovered
     		registerItemRenders(LeatherChainBoots, "LeatherChainBoots");
     		registerItemRenders(gemRuby, "gemRuby");
     		registerItemRenders(Nausea, "Nausea");
-    		registerItemRenders(Mining, "Mining");
+    		registerItemRenders(NauseaSplash, "Nauseasplash");
     		registerItemRenders(Blindness, "Blindness");
+    		registerItemRenders(BlindnessSplash, "Blindnesssplash");
+    		registerItemRenders(Dullness, "Dullness");
+    		registerItemRenders(DullnessSplash, "Dullnesssplash");
     		registerItemRenders(ItemLantern, "ItemLantern");
     		registerItemRenders(Scarecrow, "Scarecrow");
     		registerItemRenders(DreamPillow, "DreamPillow");
@@ -387,13 +393,25 @@ public class mod_Rediscovered
                 {
                     Items.rotten_flesh, new ItemStack(Items.potionitem, 1, 16)
                 });
+        GameRegistry.addShapelessRecipe(new ItemStack(NauseaSplash, 1), new Object[]
+                {
+                    Nausea, Items.gunpowder
+                });
         GameRegistry.addShapelessRecipe(new ItemStack(Blindness, 1), new Object[]
                 {
                     Items.poisonous_potato, new ItemStack(Items.potionitem, 1, 16)
                 });
-        GameRegistry.addShapelessRecipe(new ItemStack(Mining, 1), new Object[]
+        GameRegistry.addShapelessRecipe(new ItemStack(BlindnessSplash, 1), new Object[]
+                {
+                    Blindness, Items.gunpowder
+                });
+        GameRegistry.addShapelessRecipe(new ItemStack(Dullness, 1), new Object[]
                 {
                     Items.apple, new ItemStack(Items.potionitem, 1, 16)
+                });
+        GameRegistry.addShapelessRecipe(new ItemStack(DullnessSplash, 1), new Object[]
+                {
+                    Dullness, Items.gunpowder
                 });
         GameRegistry.addRecipe(new ItemStack(DirtSlab, 6), new Object[]
                 {
