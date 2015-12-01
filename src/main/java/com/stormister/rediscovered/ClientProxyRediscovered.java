@@ -39,6 +39,7 @@ public class ClientProxyRediscovered extends CommonProxyRediscovered
     	RenderingRegistry.registerEntityRenderingHandler(com.stormister.rediscovered.EntityParrow.class, new RenderParrow(Minecraft.getMinecraft().getRenderManager()));
     	RenderingRegistry.registerEntityRenderingHandler(com.stormister.rediscovered.EntityGiant.class, new RenderGiant(Minecraft.getMinecraft().getRenderManager(), new ModelZombie(), 0.5F, 6.0F));
     	RenderingRegistry.registerEntityRenderingHandler(com.stormister.rediscovered.EntityScarecrow.class, new RenderScarecrow(Minecraft.getMinecraft().getRenderManager(), new ModelScarecrow(), 0.5F));
+    	RenderingRegistry.registerEntityRenderingHandler(com.stormister.rediscovered.EntityRediscoveredPotion.class, new RenderRediscoveredPotion(Minecraft.getMinecraft().getRenderManager(), ));
 	}
 	
 	public void registerTileEntitySpecialRenderer(){

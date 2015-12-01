@@ -19,6 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityRediscoveredPotion extends EntityThrowable
 {
     private ItemStack potionDamage;
+    int color;
 
     public EntityRediscoveredPotion(World worldIn, EntityLivingBase p_i1790_2_, ItemStack p_i1790_3_)
     {
@@ -74,14 +75,23 @@ public class EntityRediscoveredPotion extends EntityThrowable
                             }
 
                             PotionEffect potioneffect;
-                            if(potionDamage.getItem().equals(mod_Rediscovered.NauseaSplash))
+                            
+                            if(potionDamage.getItem().equals(mod_Rediscovered.NauseaSplash)){
                                 potioneffect = new PotionEffect(9, 720, 0);
-                            else if(potionDamage.getItem().equals(mod_Rediscovered.BlindnessSplash))
+                                color = 8196;
+                            }
+                            else if(potionDamage.getItem().equals(mod_Rediscovered.BlindnessSplash)){
                             	potioneffect = new PotionEffect(15, 720, 0);
-                            else if(potionDamage.getItem().equals(mod_Rediscovered.DullnessSplash))
+                            	color = 8201;
+                            }
+                            else if(potionDamage.getItem().equals(mod_Rediscovered.DullnessSplash)){
                             	potioneffect = new PotionEffect(4, 720, 0);
-                            else
+                            	color = 8202;
+                            }
+                            else{
                             	potioneffect = new PotionEffect(0, 0, 0);
+                            	color = 0;
+                            }
                             
                                 int i = potioneffect.getPotionID();
 
@@ -103,9 +113,7 @@ public class EntityRediscoveredPotion extends EntityThrowable
                     }
                 }
             
-//			  Potion icon when in air I assume
-//            this.worldObj.playAuxSFX(2002, new BlockPos(this), this.getPotionDamage());
-            this.worldObj.playAuxSFX(2002, new BlockPos(this), 0);
+            this.worldObj.playAuxSFX(2002, new BlockPos(this), color);
             this.setDead();
         }
     }
