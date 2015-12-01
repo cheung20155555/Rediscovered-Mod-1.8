@@ -89,7 +89,7 @@ public class ItemPotionBlindness extends Item
 
             if (!worldIn.isRemote)
             {
-                worldIn.spawnEntityInWorld(new EntityPotion(worldIn, playerIn, itemStackIn));
+                worldIn.spawnEntityInWorld(new EntityRediscoveredPotion(worldIn, playerIn, itemStackIn));
             }
 
             return itemStackIn;

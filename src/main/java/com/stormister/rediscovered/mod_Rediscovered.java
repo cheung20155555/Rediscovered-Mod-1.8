@@ -57,7 +57,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /*
  * Current Changelog - 1.2.1
- * -Changed potions (Mining is now Dullness)
+ * -Added splash potions and changed how current potions work
  */
 
 public class mod_Rediscovered
