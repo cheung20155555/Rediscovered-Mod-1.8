@@ -33,15 +33,15 @@ public class EntityRediscoveredPotion extends EntityThrowable
         this.potionDamage = p_i1790_3_;
         randomTilt = rand.nextInt(360);
         
-        if(potionDamage.getItem().equals(mod_Rediscovered.NauseaSplash)){
+        if(potionDamage.getMetadata() == 0){
             potioneffect = new PotionEffect(9, 720, 0);
             color = 16388;
         }
-        else if(potionDamage.getItem().equals(mod_Rediscovered.BlindnessSplash)){
+        else if(potionDamage.getMetadata() == 0){
         	potioneffect = new PotionEffect(15, 720, 0);
         	color = 16393;
         }
-        else if(potionDamage.getItem().equals(mod_Rediscovered.DullnessSplash)){
+        else if(potionDamage.getMetadata() == 0){
         	potioneffect = new PotionEffect(4, 720, 0);
         	color = 16398;
         }

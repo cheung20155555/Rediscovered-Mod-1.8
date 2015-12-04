@@ -19,17 +19,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemPotionRediscovered extends Item
 {
-	private String name;
+	private final String name = "RediscoveredPotion";
 	private boolean splash;
-    public ItemPotionRediscovered(String name, boolean par4)
+    public ItemPotionRediscovered()
     {
         super();
+        this.setHasSubtypes(true);
         this.setMaxStackSize(1);
         this.setCreativeTab(CreativeTabs.tabBrewing);
-        this.name = name;
-        this.splash = par4;
-        if(splash)
-        	name = name+"splash";
         GameRegistry.registerItem(this, name);
         setUnlocalizedName(mod_Rediscovered.modid + "_" + name);
     }
@@ -42,12 +39,12 @@ public class ItemPotionRediscovered extends Item
 
     public ItemStack onItemUseFinish(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {
-    	if(name == "Nausea" || name == "Nauseasplash")
-    		entityPlayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 30 * 20, 6));
-    	else if(name == "Blindness" || name == "Blindnesssplash")
-    		entityPlayer.addPotionEffect(new PotionEffect(Potion.blindness.id, 30 * 20, 6));
-    	else if(name == "Dullness" || name == "Dullnesssplash")
-    		entityPlayer.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 30 * 20, 6));
+//    	if(name == "Nausea" || name == "Nauseasplash")
+//    		entityPlayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 30 * 20, 6));
+//    	else if(name == "Blindness" || name == "Blindnesssplash")
+//    		entityPlayer.addPotionEffect(new PotionEffect(Potion.blindness.id, 30 * 20, 6));
+//    	else if(name == "Dullness" || name == "Dullnesssplash")
+//    		entityPlayer.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 30 * 20, 6));
 	    
 	    if (!entityPlayer.capabilities.isCreativeMode)
         {
@@ -112,17 +109,29 @@ public class ItemPotionRediscovered extends Item
      */
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-    	if(name == "Nausea" || name == "Nauseasplash")
-            par3List.add("\u00a77" + "Dizziness (0:30)");  
-    	else if(name == "Blindness" || name == "Blindnesssplash")
-            par3List.add("\u00a77" + "Blindness (0:30)"); 
-    	else if(name == "Dullness" || name == "Dullnesssplash")
-            par3List.add("\u00a77" + "Slow Mining (0:30)"); 
+//    	if(name == "Nausea" || name == "Nauseasplash")
+//            par3List.add("\u00a77" + "Dizziness (0:30)");  
+//    	else if(name == "Blindness" || name == "Blindnesssplash")
+//            par3List.add("\u00a77" + "Blindness (0:30)"); 
+//    	else if(name == "Dullness" || name == "Dullnesssplash")
+//            par3List.add("\u00a77" + "Slow Mining (0:30)"); 
         
     }
 
     public String getName()
     {
     	return name;
+    }
+    
+    @Override
+    public String getUnlocalizedName(ItemStack stack) {
+        return super.getUnlocalizedName() + "." + (stack.getItemDamage() == 0 ? "Nausea" : stack.getItemDamage() == 1 ? "Blindness" : stack.getItemDamage() == 2 ? "Dullness" : "");
+    }
+
+    @Override
+    public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
+        subItems.add(new ItemStack(itemIn, 1, 0));
+        subItems.add(new ItemStack(itemIn, 1, 1));
+        subItems.add(new ItemStack(itemIn, 1, 2));
     }
 }
