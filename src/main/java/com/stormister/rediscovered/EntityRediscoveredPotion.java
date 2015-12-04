@@ -19,7 +19,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityRediscoveredPotion extends EntityThrowable
 {
     private ItemStack potionDamage;
-    int color, randomTilt;
+    int color = 16388, randomTilt;
+    PotionEffect potioneffect;
     
     public EntityRediscoveredPotion(World worldIn)
     {
@@ -31,6 +32,23 @@ public class EntityRediscoveredPotion extends EntityThrowable
         super(worldIn, p_i1790_2_);
         this.potionDamage = p_i1790_3_;
         randomTilt = rand.nextInt(360);
+        
+        if(potionDamage.getItem().equals(mod_Rediscovered.NauseaSplash)){
+            potioneffect = new PotionEffect(9, 720, 0);
+            color = 16388;
+        }
+        else if(potionDamage.getItem().equals(mod_Rediscovered.BlindnessSplash)){
+        	potioneffect = new PotionEffect(15, 720, 0);
+        	color = 16393;
+        }
+        else if(potionDamage.getItem().equals(mod_Rediscovered.DullnessSplash)){
+        	potioneffect = new PotionEffect(4, 720, 0);
+        	color = 16398;
+        }
+        else{
+        	potioneffect = new PotionEffect(0, 0, 0);
+        	color = 0;
+        }
     }
 
     /**
@@ -84,24 +102,7 @@ public class EntityRediscoveredPotion extends EntityThrowable
                                 d1 = 1.0D;
                             }
 
-                            PotionEffect potioneffect;
                             
-                            if(potionDamage.getItem().equals(mod_Rediscovered.NauseaSplash)){
-                                potioneffect = new PotionEffect(9, 720, 0);
-                                color = 8196;
-                            }
-                            else if(potionDamage.getItem().equals(mod_Rediscovered.BlindnessSplash)){
-                            	potioneffect = new PotionEffect(15, 720, 0);
-                            	color = 8201;
-                            }
-                            else if(potionDamage.getItem().equals(mod_Rediscovered.DullnessSplash)){
-                            	potioneffect = new PotionEffect(4, 720, 0);
-                            	color = 8202;
-                            }
-                            else{
-                            	potioneffect = new PotionEffect(0, 0, 0);
-                            	color = 0;
-                            }
                             
                                 int i = potioneffect.getPotionID();
 

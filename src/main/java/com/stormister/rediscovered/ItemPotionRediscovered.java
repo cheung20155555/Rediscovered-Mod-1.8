@@ -17,15 +17,16 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemPotionNausea extends Item
+public class ItemPotionRediscovered extends Item
 {
-	private String name = "Nausea";
+	private String name;
 	private boolean splash;
-    public ItemPotionNausea(int par2, float par3, boolean par4)
+    public ItemPotionRediscovered(String name, boolean par4)
     {
         super();
         this.setMaxStackSize(1);
         this.setCreativeTab(CreativeTabs.tabBrewing);
+        this.name = name;
         this.splash = par4;
         if(splash)
         	name = name+"splash";
@@ -41,7 +42,12 @@ public class ItemPotionNausea extends Item
 
     public ItemStack onItemUseFinish(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {
-	    entityPlayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 30 * 20, 6));
+    	if(name == "Nausea" || name == "Nauseasplash")
+    		entityPlayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 30 * 20, 6));
+    	else if(name == "Blindness" || name == "Blindnesssplash")
+    		entityPlayer.addPotionEffect(new PotionEffect(Potion.blindness.id, 30 * 20, 6));
+    	else if(name == "Dullness" || name == "Dullnesssplash")
+    		entityPlayer.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 30 * 20, 6));
 	    
 	    if (!entityPlayer.capabilities.isCreativeMode)
         {
@@ -106,7 +112,12 @@ public class ItemPotionNausea extends Item
      */
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-            par3List.add("\u00a77" + "Dizziness (0:30)");                
+    	if(name == "Nausea" || name == "Nauseasplash")
+            par3List.add("\u00a77" + "Dizziness (0:30)");  
+    	else if(name == "Blindness" || name == "Blindnesssplash")
+            par3List.add("\u00a77" + "Blindness (0:30)"); 
+    	else if(name == "Dullness" || name == "Dullnesssplash")
+            par3List.add("\u00a77" + "Slow Mining (0:30)"); 
         
     }
 
