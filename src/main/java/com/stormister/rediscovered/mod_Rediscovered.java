@@ -129,6 +129,7 @@ public class mod_Rediscovered
     public static int GiantSpawn;
     public static int FishSpawn;
     public static int PurpleArrowID;
+    public static int PotionID;
     public static int MountableBlockID;
     public static int RanaID;
     public static int SteveID;
@@ -491,6 +492,7 @@ public class mod_Rediscovered
 
         //IDs
         PurpleArrowID = c.get("ID's", "Purple Arrow ID (-1 means it will automatically assign an ID)", -1).getInt();
+        PotionID = c.get("ID's", "Thrown Potion ID (-1 means it will automatically assign an ID)", -1).getInt();
         MountableBlockID = c.get("ID's", "Mountable Block ID (-1 means it will automatically assign an ID)", -1).getInt();
         RanaID = c.get("ID's", "Rana ID (-1 means it will automatically assign an ID)", -1).getInt();
         SteveID = c.get("ID's", "Steve ID (-1 means it will automatically assign an ID)", -1).getInt();
@@ -561,6 +563,7 @@ public class mod_Rediscovered
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new RediscoveredGuiHandler());
         
         registerRediscoveredMob(EntityParrow.class, "ParrowRediscovered", PurpleArrowID);
+        registerRediscoveredMob(EntityRediscoveredPotion.class, "PotionRediscovered", PotionID);
         registerRediscoveredMob(EntityMountableBlock.class, "EntityMountableBlockRediscovered", MountableBlockID);
         registerRediscoveredMob(EntityRana.class, "RanaRediscovered", 0x4c7129, 0xf0a5a2, RanaID);
         registerRediscoveredMob(EntitySteve.class, "SteveRediscovered", 44975, 0xf6b201, SteveID);

@@ -19,12 +19,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityRediscoveredPotion extends EntityThrowable
 {
     private ItemStack potionDamage;
-    int color;
+    int color, randomTilt;
+    
+    public EntityRediscoveredPotion(World worldIn)
+    {
+    	super(worldIn);
+    }
 
     public EntityRediscoveredPotion(World worldIn, EntityLivingBase p_i1790_2_, ItemStack p_i1790_3_)
     {
         super(worldIn, p_i1790_2_);
         this.potionDamage = p_i1790_3_;
+        randomTilt = rand.nextInt(360);
     }
 
     /**
@@ -43,6 +49,10 @@ public class EntityRediscoveredPotion extends EntityThrowable
     protected float getInaccuracy()
     {
         return -20.0F;
+    }
+    
+    public int getRandomTilt(){
+    	return randomTilt;
     }
 
     /**
