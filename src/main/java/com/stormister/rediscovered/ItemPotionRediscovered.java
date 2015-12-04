@@ -20,7 +20,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemPotionRediscovered extends Item
 {
 	private final String name = "RediscoveredPotion";
-	private boolean splash;
     public ItemPotionRediscovered()
     {
         super();
@@ -36,15 +35,26 @@ public class ItemPotionRediscovered extends Item
     {
         return true;
     }
+    
+    public String getType(ItemStack itemStack){
+    	if(itemStack.getItemDamage() == 0 || itemStack.getItemDamage() == 100)
+    		return "Nausea";
+    	else if(itemStack.getItemDamage() == 1 || itemStack.getItemDamage() == 101)
+    		return "Blindness";
+    	else if(itemStack.getItemDamage() == 2 || itemStack.getItemDamage() == 102)
+    		return "Dullness";
+    	else
+    		return "";
+    }
 
     public ItemStack onItemUseFinish(ItemStack itemStack, World world, EntityPlayer entityPlayer)
     {
-//    	if(name == "Nausea" || name == "Nauseasplash")
-//    		entityPlayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 30 * 20, 6));
-//    	else if(name == "Blindness" || name == "Blindnesssplash")
-//    		entityPlayer.addPotionEffect(new PotionEffect(Potion.blindness.id, 30 * 20, 6));
-//    	else if(name == "Dullness" || name == "Dullnesssplash")
-//    		entityPlayer.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 30 * 20, 6));
+    	if(getType(itemStack) == "Nausea")
+    		entityPlayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 30 * 20, 6));
+    	else if(getType(itemStack) == "Blindness")
+    		entityPlayer.addPotionEffect(new PotionEffect(Potion.blindness.id, 30 * 20, 6));
+    	else if(getType(itemStack) == "Dullness")
+    		entityPlayer.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 30 * 20, 6));
 	    
 	    if (!entityPlayer.capabilities.isCreativeMode)
         {
@@ -81,7 +91,7 @@ public class ItemPotionRediscovered extends Item
      */
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
-        if (splash)
+        if (isSplash(itemStackIn.getMetadata()))
         {
             if (!playerIn.capabilities.isCreativeMode)
             {
@@ -107,14 +117,14 @@ public class ItemPotionRediscovered extends Item
     /**
      * allows items to add custom lines of information to the mouseover description
      */
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
+    public void addInformation(ItemStack itemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
-//    	if(name == "Nausea" || name == "Nauseasplash")
-//            par3List.add("\u00a77" + "Dizziness (0:30)");  
-//    	else if(name == "Blindness" || name == "Blindnesssplash")
-//            par3List.add("\u00a77" + "Blindness (0:30)"); 
-//    	else if(name == "Dullness" || name == "Dullnesssplash")
-//            par3List.add("\u00a77" + "Slow Mining (0:30)"); 
+    	if(getType(itemStack) == "Nausea")
+            par3List.add("\u00a77" + "Dizziness (0:30)");  
+    	else if(getType(itemStack) == "Blindness")
+            par3List.add("\u00a77" + "Blindness (0:30)"); 
+    	else if(getType(itemStack) == "Dullness")
+            par3List.add("\u00a77" + "Slow Mining (0:30)"); 
         
     }
 
@@ -123,9 +133,14 @@ public class ItemPotionRediscovered extends Item
     	return name;
     }
     
+    public static boolean isSplash(int meta)
+    {
+        return (meta & 100) != 0;
+    }
+    
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName() + "." + (stack.getItemDamage() == 0 ? "Nausea" : stack.getItemDamage() == 1 ? "Blindness" : stack.getItemDamage() == 2 ? "Dullness" : "");
+        return super.getUnlocalizedName() + "." + getType(stack) + (isSplash(stack.getMetadata()) ? ".Splash" : "");
     }
 
     @Override
@@ -133,5 +148,9 @@ public class ItemPotionRediscovered extends Item
         subItems.add(new ItemStack(itemIn, 1, 0));
         subItems.add(new ItemStack(itemIn, 1, 1));
         subItems.add(new ItemStack(itemIn, 1, 2));
+        
+        subItems.add(new ItemStack(itemIn, 1, 100));
+        subItems.add(new ItemStack(itemIn, 1, 101));
+        subItems.add(new ItemStack(itemIn, 1, 102));
     }
 }

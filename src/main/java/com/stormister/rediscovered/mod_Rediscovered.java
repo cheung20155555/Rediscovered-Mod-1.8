@@ -381,26 +381,26 @@ public class mod_Rediscovered
                 {
                     Items.rotten_flesh, new ItemStack(Items.potionitem, 1, 16)
                 });
-//        GameRegistry.addShapelessRecipe(new ItemStack(NauseaSplash, 1), new Object[]
-//                {
-//                    Nausea, Items.gunpowder
-//                });
+        GameRegistry.addShapelessRecipe(new ItemStack(RediscoveredPotion, 1, 100), new Object[]
+                {
+                	new ItemStack(RediscoveredPotion, 1, 0), Items.gunpowder
+                });
         GameRegistry.addShapelessRecipe(new ItemStack(RediscoveredPotion, 1, 1), new Object[]
                 {
                     Items.poisonous_potato, new ItemStack(Items.potionitem, 1, 16)
                 });
-//        GameRegistry.addShapelessRecipe(new ItemStack(BlindnessSplash, 1), new Object[]
-//                {
-//                    Blindness, Items.gunpowder
-//                });
+        GameRegistry.addShapelessRecipe(new ItemStack(RediscoveredPotion, 1, 101), new Object[]
+                {
+                    Blindness, Items.gunpowder
+                });
         GameRegistry.addShapelessRecipe(new ItemStack(RediscoveredPotion, 1, 2), new Object[]
                 {
                     Items.apple, new ItemStack(Items.potionitem, 1, 16)
                 });
-//        GameRegistry.addShapelessRecipe(new ItemStack(DullnessSplash, 1), new Object[]
-//                {
-//                    Dullness, Items.gunpowder
-//                });
+        GameRegistry.addShapelessRecipe(new ItemStack(RediscoveredPotion, 102), new Object[]
+                {
+                    Dullness, Items.gunpowder
+                });
         GameRegistry.addRecipe(new ItemStack(DirtSlab, 6), new Object[]
                 {
                     "DDD", 'D', Blocks.dirt
