@@ -391,7 +391,7 @@ public class mod_Rediscovered
                 });
         GameRegistry.addShapelessRecipe(new ItemStack(RediscoveredPotion, 1, 101), new Object[]
                 {
-                    Blindness, Items.gunpowder
+        			new ItemStack(RediscoveredPotion, 1, 1), Items.gunpowder
                 });
         GameRegistry.addShapelessRecipe(new ItemStack(RediscoveredPotion, 1, 2), new Object[]
                 {
@@ -399,7 +399,7 @@ public class mod_Rediscovered
                 });
         GameRegistry.addShapelessRecipe(new ItemStack(RediscoveredPotion, 102), new Object[]
                 {
-                    Dullness, Items.gunpowder
+        			new ItemStack(RediscoveredPotion, 1, 2), Items.gunpowder
                 });
         GameRegistry.addRecipe(new ItemStack(DirtSlab, 6), new Object[]
                 {
