@@ -23,12 +23,12 @@ public class RenderRediscoveredPotion extends RenderSnowball
 {
 	public RenderRediscoveredPotion(RenderManager p_i46136_1_, RenderItem p_i46136_2_)
     {
-        super(p_i46136_1_, Items.potionitem, p_i46136_2_);
+        super(p_i46136_1_, mod_Rediscovered.RediscoveredPotion, p_i46136_2_);
     }
 
     public ItemStack func_177085_a(EntityRediscoveredPotion p_177085_1_)
     {
-        return new ItemStack(this.field_177084_a, 1, p_177085_1_.color);
+        return new ItemStack(this.field_177084_a, 1, p_177085_1_.getMeta());
     }
 
     public ItemStack func_177082_d(Entity p_177082_1_)

@@ -292,6 +292,9 @@ public class mod_Rediscovered
     		registerItemRenders(RediscoveredPotion, 0, "RediscoveredPotion_Nausea");
     		registerItemRenders(RediscoveredPotion, 1, "RediscoveredPotion_Blindness");
     		registerItemRenders(RediscoveredPotion, 2, "RediscoveredPotion_Dullness");
+    		registerItemRenders(RediscoveredPotion, 100, "RediscoveredPotion_NauseaSplash");
+    		registerItemRenders(RediscoveredPotion, 101, "RediscoveredPotion_BlindnessSplash");
+    		registerItemRenders(RediscoveredPotion, 102, "RediscoveredPotion_DullnessSplash");
     		registerItemRenders(ItemLantern, "ItemLantern");
     		registerItemRenders(Scarecrow, "Scarecrow");
     		registerItemRenders(DreamPillow, "DreamPillow");

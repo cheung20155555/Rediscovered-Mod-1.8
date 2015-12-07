@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityRediscoveredPotion extends EntityThrowable
 {
     private ItemStack potionDamage;
-    int color = 16388, randomTilt;
+    int meta, color = 16388, randomTilt;
     PotionEffect potioneffect;
     
     public EntityRediscoveredPotion(World worldIn)
@@ -33,15 +33,15 @@ public class EntityRediscoveredPotion extends EntityThrowable
         this.potionDamage = p_i1790_3_;
         randomTilt = rand.nextInt(360);
         
-        if(potionDamage.getMetadata() == 0){
+        if(potionDamage.getMetadata() == 100){
             potioneffect = new PotionEffect(9, 720, 0);
             color = 16388;
         }
-        else if(potionDamage.getMetadata() == 0){
+        else if(potionDamage.getMetadata() == 101){
         	potioneffect = new PotionEffect(15, 720, 0);
         	color = 16393;
         }
-        else if(potionDamage.getMetadata() == 0){
+        else if(potionDamage.getMetadata() == 102){
         	potioneffect = new PotionEffect(4, 720, 0);
         	color = 16398;
         }
@@ -49,6 +49,7 @@ public class EntityRediscoveredPotion extends EntityThrowable
         	potioneffect = new PotionEffect(0, 0, 0);
         	color = 0;
         }
+        setMeta(p_i1790_3_);
     }
 
     /**
@@ -71,6 +72,14 @@ public class EntityRediscoveredPotion extends EntityThrowable
     
     public int getRandomTilt(){
     	return randomTilt;
+    }
+    
+    public int getMeta(){
+    	return meta;
+    }
+    
+    public void setMeta(ItemStack stack){
+    	this.meta = stack.getMetadata();
     }
 
     /**
@@ -101,25 +110,14 @@ public class EntityRediscoveredPotion extends EntityThrowable
                             {
                                 d1 = 1.0D;
                             }
-
                             
-                            
-                                int i = potioneffect.getPotionID();
+                            int i = potioneffect.getPotionID();
+                            int j = (int)(d1 * (double)potioneffect.getDuration() + 0.5D);
 
-                                if (Potion.potionTypes[i].isInstant())
-                                {
-                                    Potion.potionTypes[i].affectEntity(this, this.getThrower(), entitylivingbase, potioneffect.getAmplifier(), d1);
-                                }
-                                else
-                                {
-                                    int j = (int)(d1 * (double)potioneffect.getDuration() + 0.5D);
-
-                                    if (j > 20)
-                                    {
-                                        entitylivingbase.addPotionEffect(new PotionEffect(i, j, potioneffect.getAmplifier()));
-                                    }
-                                }
-                            
+                            if (j > 20)
+                            {
+                            	entitylivingbase.addPotionEffect(new PotionEffect(i, j, potioneffect.getAmplifier()));
+                            }                            
                         }
                     }
                 }

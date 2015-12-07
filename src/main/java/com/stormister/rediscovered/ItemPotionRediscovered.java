@@ -36,7 +36,7 @@ public class ItemPotionRediscovered extends Item
         return true;
     }
     
-    public String getType(ItemStack itemStack){
+    public static String getType(ItemStack itemStack){
     	if(itemStack.getItemDamage() == 0 || itemStack.getItemDamage() == 100)
     		return "Nausea";
     	else if(itemStack.getItemDamage() == 1 || itemStack.getItemDamage() == 101)
