@@ -28,7 +28,7 @@ public class RenderRediscoveredPotion extends RenderSnowball
 
     public ItemStack func_177085_a(EntityRediscoveredPotion p_177085_1_)
     {
-        return new ItemStack(this.field_177084_a, 1, p_177085_1_.getMeta());
+        return new ItemStack(this.field_177084_a, 1, p_177085_1_.getPotionDamage());
     }
 
     public ItemStack func_177082_d(Entity p_177082_1_)

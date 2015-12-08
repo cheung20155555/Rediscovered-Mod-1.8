@@ -19,14 +19,31 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class EntityRediscoveredPotion extends EntityThrowable
 {
     private ItemStack potionDamage;
-    int meta, color = 16388, randomTilt;
+    int color = 16388, randomTilt;
     PotionEffect potioneffect;
     
     public EntityRediscoveredPotion(World worldIn)
     {
-    	super(worldIn);
+        super(worldIn);
     }
 
+    public EntityRediscoveredPotion(World worldIn, EntityLivingBase p_i1789_2_, int p_i1789_3_)
+    {
+        this(worldIn, p_i1789_2_, new ItemStack(mod_Rediscovered.RediscoveredPotion, 1, p_i1789_3_));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public EntityRediscoveredPotion(World worldIn, double p_i1791_2_, double p_i1791_4_, double p_i1791_6_, int p_i1791_8_)
+    {
+        this(worldIn, p_i1791_2_, p_i1791_4_, p_i1791_6_, new ItemStack(mod_Rediscovered.RediscoveredPotion, 1, p_i1791_8_));
+    }
+
+    public EntityRediscoveredPotion(World worldIn, double p_i1792_2_, double p_i1792_4_, double p_i1792_6_, ItemStack p_i1792_8_)
+    {
+        super(worldIn, p_i1792_2_, p_i1792_4_, p_i1792_6_);
+        this.potionDamage = p_i1792_8_;
+    }
+    
     public EntityRediscoveredPotion(World worldIn, EntityLivingBase p_i1790_2_, ItemStack p_i1790_3_)
     {
         super(worldIn, p_i1790_2_);
@@ -49,7 +66,6 @@ public class EntityRediscoveredPotion extends EntityThrowable
         	potioneffect = new PotionEffect(0, 0, 0);
         	color = 0;
         }
-        setMeta(p_i1790_3_);
     }
 
     /**
@@ -74,12 +90,26 @@ public class EntityRediscoveredPotion extends EntityThrowable
     	return randomTilt;
     }
     
-    public int getMeta(){
-    	return meta;
+    /**
+     * Sets the PotionEffect by the given id of the potion effect.
+     */
+    public void setPotionDamage(int potionId)
+    {
+        if (this.potionDamage == null)
+        {
+            this.potionDamage = new ItemStack(Items.potionitem, 1, 0);
+        }
+
+        this.potionDamage.setItemDamage(potionId);
     }
     
-    public void setMeta(ItemStack stack){
-    	this.meta = stack.getMetadata();
+    public int getPotionDamage()
+    {
+        if (this.potionDamage == null)
+        {
+            this.potionDamage = new ItemStack(Items.potionitem, 1, 0);
+        }
+        return this.potionDamage.getMetadata();
     }
 
     /**
@@ -124,6 +154,41 @@ public class EntityRediscoveredPotion extends EntityThrowable
             
             this.worldObj.playAuxSFX(2002, new BlockPos(this), color);
             this.setDead();
+        }
+    }
+    
+    /**
+     * (abstract) Protected helper method to read subclass entity data from NBT.
+     */
+    public void readEntityFromNBT(NBTTagCompound tagCompund)
+    {
+        super.readEntityFromNBT(tagCompund);
+
+        if (tagCompund.hasKey("Potion", 10))
+        {
+            this.potionDamage = ItemStack.loadItemStackFromNBT(tagCompund.getCompoundTag("Potion"));
+        }
+        else
+        {
+            this.setPotionDamage(tagCompund.getInteger("potionValue"));
+        }
+
+        if (this.potionDamage == null)
+        {
+            this.setDead();
+        }
+    }
+
+    /**
+     * (abstract) Protected helper method to write subclass entity data to NBT.
+     */
+    public void writeEntityToNBT(NBTTagCompound tagCompound)
+    {
+        super.writeEntityToNBT(tagCompound);
+
+        if (this.potionDamage != null)
+        {
+            tagCompound.setTag("Potion", this.potionDamage.writeToNBT(new NBTTagCompound()));
         }
     }
 }

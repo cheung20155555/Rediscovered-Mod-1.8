@@ -1,6 +1,11 @@
 package com.stormister.rediscovered;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,8 +14,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionHelper;
 import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -19,11 +27,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemPotionRediscovered extends Item
 {
+	private Map effectCache = Maps.newHashMap();
+	private static final Map SUB_ITEMS_CACHE = Maps.newLinkedHashMap();
 	private final String name = "RediscoveredPotion";
     public ItemPotionRediscovered()
     {
         super();
         this.setHasSubtypes(true);
+        this.setMaxDamage(0);
         this.setMaxStackSize(1);
         this.setCreativeTab(CreativeTabs.tabBrewing);
         GameRegistry.registerItem(this, name);
@@ -45,6 +56,56 @@ public class ItemPotionRediscovered extends Item
     		return "Dullness";
     	else
     		return "";
+    }
+    
+    public List getEffects(ItemStack stack)
+    {
+        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("CustomPotionEffects", 9))
+        {
+            ArrayList arraylist = Lists.newArrayList();
+            NBTTagList nbttaglist = stack.getTagCompound().getTagList("CustomPotionEffects", 10);
+
+            for (int i = 0; i < nbttaglist.tagCount(); ++i)
+            {
+                NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
+                PotionEffect potioneffect = PotionEffect.readCustomPotionEffectFromNBT(nbttagcompound);
+
+                if (potioneffect != null)
+                {
+                    arraylist.add(potioneffect);
+                }
+            }
+
+            return arraylist;
+        }
+        else
+        {
+            List list = (List)this.effectCache.get(Integer.valueOf(stack.getMetadata()));
+
+            if (list == null)
+            {
+                list = PotionHelper.getPotionEffects(stack.getMetadata(), false);
+                this.effectCache.put(Integer.valueOf(stack.getMetadata()), list);
+            }
+
+            return list;
+        }
+    }
+
+    /**
+     * Returns a list of effects for the specified potion damage value.
+     */
+    public List getEffects(int meta)
+    {
+        List list = (List)this.effectCache.get(Integer.valueOf(meta));
+
+        if (list == null)
+        {
+            list = PotionHelper.getPotionEffects(meta, false);
+            this.effectCache.put(Integer.valueOf(meta), list);
+        }
+
+        return list;
     }
 
     public ItemStack onItemUseFinish(ItemStack itemStack, World world, EntityPlayer entityPlayer)
@@ -102,7 +163,7 @@ public class ItemPotionRediscovered extends Item
 
             if (!worldIn.isRemote)
             {
-                worldIn.spawnEntityInWorld(new EntityRediscoveredPotion(worldIn, playerIn, itemStackIn));
+                worldIn.spawnEntityInWorld(new EntityRediscoveredPotion(worldIn, playerIn, itemStackIn.getMetadata()));
             }
 
             return itemStackIn;
@@ -153,4 +214,5 @@ public class ItemPotionRediscovered extends Item
         subItems.add(new ItemStack(itemIn, 1, 101));
         subItems.add(new ItemStack(itemIn, 1, 102));
     }
+    
 }

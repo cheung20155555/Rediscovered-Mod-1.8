@@ -12,6 +12,7 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.creativetab.CreativeTabs;
@@ -555,6 +556,8 @@ public class mod_Rediscovered
         OreDictionary.registerOre("gemRuby", gemRuby);
         
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new RediscoveredGuiHandler());
+        
+        ModelBakery.addVariantName(RediscoveredPotion, "rediscovered:RediscoveredPotion_Nausea", "rediscovered:RediscoveredPotion_Blindness", "rediscovered:RediscoveredPotion_Dullness", "rediscovered:RediscoveredPotion_NauseaSplash", "rediscovered:RediscoveredPotion_BlindnessSplash", "rediscovered:RediscoveredPotion_DullnessSplash");
         
         registerRediscoveredMob(EntityParrow.class, "ParrowRediscovered", PurpleArrowID);
         registerRediscoveredMob(EntityRediscoveredPotion.class, "PotionRediscovered", PotionID);
