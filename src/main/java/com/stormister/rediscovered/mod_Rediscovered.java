@@ -84,6 +84,7 @@ public class mod_Rediscovered
     public static Item GoldQuiver;
     public static Item IronQuiver;
     public static Item DiamondQuiver;
+    public static Item LeatherChainQuiver;
     public static Item LeatherChainHelmet;
     public static Item LeatherChainChest;
     public static Item LeatherChainLegs;
@@ -218,6 +219,7 @@ public class mod_Rediscovered
 	        GoldQuiver = (new ItemQuiver( ArmorMaterial.GOLD, 0, 1, "GoldQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
 	        IronQuiver = (new ItemQuiver( ArmorMaterial.IRON, 0, 1, "IronQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
 	        DiamondQuiver = (new ItemQuiver( ArmorMaterial.DIAMOND, 0, 1, "DiamondQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
+	        LeatherChainQuiver = (new ItemQuiver(EnumArmorMaterialLC, 0, 1, "LeatherChainQuiver")).setContainerItem(Quiver).setCreativeTab(CreativeTabs.tabCombat);
         }
         LeatherChainHelmet = (new ItemLC( EnumArmorMaterialLC, 0, 0)).setCreativeTab(CreativeTabs.tabCombat);
         LeatherChainChest = (new ItemLC( EnumArmorMaterialLC, 0, 1)).setCreativeTab(CreativeTabs.tabCombat);
@@ -284,6 +286,7 @@ public class mod_Rediscovered
 		    	registerItemRenders(GoldQuiver, "GoldQuiver");
 		    	registerItemRenders(IronQuiver, "IronQuiver");
 		    	registerItemRenders(DiamondQuiver, "DiamondQuiver");
+		    	registerItemRenders(LeatherChainQuiver, "LeatherChainQuiver");
     		}
     		registerItemRenders(LeatherChainHelmet, "LeatherChainHelmet");
     		registerItemRenders(LeatherChainChest, "LeatherChainChest");
@@ -338,6 +341,8 @@ public class mod_Rediscovered
 	        GameRegistry.addShapedRecipe(new ItemStack(Items.iron_chestplate), "Q", 'Q', IronQuiver);
 	        GameRegistry.addShapelessRecipe(new ItemStack(DiamondQuiver, 1), new Object[]{Quiver, Items.diamond_chestplate});
 	        GameRegistry.addShapedRecipe(new ItemStack(Items.diamond_chestplate), "Q", 'Q', DiamondQuiver);
+	        GameRegistry.addShapelessRecipe(new ItemStack(LeatherChainQuiver, 1), new Object[]{Quiver, LeatherChainChest});
+	        GameRegistry.addShapedRecipe(new ItemStack(LeatherChainChest), "Q", 'Q', LeatherChainQuiver);
     	}
         GameRegistry.addShapedRecipe(new ItemStack(LeatherChainHelmet), "L", "C", 'L', Items.leather_helmet, 'C', Items.chainmail_helmet);
         GameRegistry.addShapedRecipe(new ItemStack(LeatherChainChest), "L", "C", 'L', Items.leather_chestplate, 'C', Items.chainmail_chestplate);

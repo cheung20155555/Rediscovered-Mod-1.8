@@ -1,7 +1,7 @@
 {
 	"parent": "builtin/generated",
 	"textures": {
-		"layer0": "rediscovered:items/LCLegs"
+		"layer0": "rediscovered:items/LeatherChainQuiver"
 	},
 	"display": {
 		"thirdperson": {
