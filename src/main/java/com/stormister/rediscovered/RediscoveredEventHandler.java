@@ -241,7 +241,7 @@ public class RediscoveredEventHandler
 		        boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, par1ItemStack) > 0;
 		        ItemStack itemstack = player.inventory.armorInventory[2];
 
-		        if(itemstack != null && (itemstack.getItem() == mod_Rediscovered.Quiver || itemstack.getItem() == mod_Rediscovered.LeatherQuiver || itemstack.getItem() == mod_Rediscovered.ChainQuiver || itemstack.getItem() == mod_Rediscovered.GoldQuiver || itemstack.getItem() == mod_Rediscovered.IronQuiver || itemstack.getItem() == mod_Rediscovered.DiamondQuiver))
+		        if(itemstack != null && (itemstack.getItem() == mod_Rediscovered.Quiver || itemstack.getItem() == mod_Rediscovered.LeatherQuiver || itemstack.getItem() == mod_Rediscovered.ChainQuiver || itemstack.getItem() == mod_Rediscovered.GoldQuiver || itemstack.getItem() == mod_Rediscovered.IronQuiver || itemstack.getItem() == mod_Rediscovered.DiamondQuiver || itemstack.getItem() == mod_Rediscovered.LeatherChainQuiver))
 		        {
 		            if (player.inventory.hasItem(Items.arrow) || flag)
 		            {
@@ -281,13 +281,14 @@ public class RediscoveredEventHandler
 		ItemStack gquiver = new ItemStack(mod_Rediscovered.GoldQuiver);
 		ItemStack iquiver = new ItemStack(mod_Rediscovered.IronQuiver);
 		ItemStack dquiver = new ItemStack(mod_Rediscovered.DiamondQuiver);
+		ItemStack lcquiver = new ItemStack(mod_Rediscovered.LeatherChainQuiver);
 		if(inv.getCurrentItem().equals(blah))
 		{
 			
 		        boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, par1ItemStack) > 0;
 		        ItemStack itemstack = player.inventory.armorInventory[2];
 		
-		        if (itemstack != null && (itemstack == quiver || itemstack != null && itemstack.equals(lquiver) || itemstack != null && itemstack.equals(cquiver) || itemstack != null && itemstack.equals(iquiver) || itemstack != null && itemstack.equals(gquiver) || itemstack != null && itemstack.equals(dquiver)))
+		        if (itemstack != null && (itemstack.equals(quiver) || itemstack.equals(lquiver) || itemstack.equals(cquiver) || itemstack.equals(iquiver) || itemstack.equals(gquiver) || itemstack.equals(dquiver) || itemstack.equals(lcquiver)))
 		        {
 		        	event.setCanceled(true);
 		        }

@@ -2,6 +2,8 @@ package com.stormister.rediscovered;
 
 import java.util.Iterator;
 import java.util.List;
+
+import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Items;
@@ -13,13 +15,14 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityRediscoveredPotion extends EntityThrowable
+public class EntityRediscoveredPotion extends EntityThrowable implements IEntityAdditionalSpawnData
 {
     private ItemStack potionDamage;
-    int color = 16388, randomTilt;
+    int color = 16388, randomTilt, metadata;
     PotionEffect potioneffect;
     
     public EntityRediscoveredPotion(World worldIn)
@@ -49,16 +52,17 @@ public class EntityRediscoveredPotion extends EntityThrowable
         super(worldIn, p_i1790_2_);
         this.potionDamage = p_i1790_3_;
         randomTilt = rand.nextInt(360);
+        this.metadata = potionDamage.getMetadata();
         
-        if(potionDamage.getMetadata() == 100){
+        if(this.metadata == 100){
             potioneffect = new PotionEffect(9, 720, 0);
             color = 16388;
         }
-        else if(potionDamage.getMetadata() == 101){
+        else if(this.metadata == 101){
         	potioneffect = new PotionEffect(15, 720, 0);
         	color = 16393;
         }
-        else if(potionDamage.getMetadata() == 102){
+        else if(this.metadata == 102){
         	potioneffect = new PotionEffect(4, 720, 0);
         	color = 16398;
         }
@@ -109,7 +113,7 @@ public class EntityRediscoveredPotion extends EntityThrowable
         {
             this.potionDamage = new ItemStack(Items.potionitem, 1, 0);
         }
-        return this.potionDamage.getMetadata();
+        return this.metadata;
     }
 
     /**
@@ -190,5 +194,13 @@ public class EntityRediscoveredPotion extends EntityThrowable
         {
             tagCompound.setTag("Potion", this.potionDamage.writeToNBT(new NBTTagCompound()));
         }
+    }
+
+    public void writeSpawnData(ByteBuf buffer) {
+    	buffer.writeInt(this.metadata);
+    }
+
+    public void readSpawnData(ByteBuf buffer) {
+    	this.metadata = buffer.readInt();
     }
 }
