@@ -17,7 +17,6 @@ public class WorldGenCherryTrees extends WorldGenAbstractTree
     private final boolean vinesGrow;
     private final int metaWood;
     private final int metaLeaves;
-    private static final String __OBFID = "CL_00000438";
 
     public WorldGenCherryTrees(boolean p_i2027_1_)
     {

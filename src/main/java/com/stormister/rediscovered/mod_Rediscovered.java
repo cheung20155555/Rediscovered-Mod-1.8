@@ -564,8 +564,6 @@ public class mod_Rediscovered
         
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new RediscoveredGuiHandler());
         
-        ModelBakery.addVariantName(RediscoveredPotion, "rediscovered:RediscoveredPotion_Nausea", "rediscovered:RediscoveredPotion_Blindness", "rediscovered:RediscoveredPotion_Dullness", "rediscovered:RediscoveredPotion_NauseaSplash", "rediscovered:RediscoveredPotion_BlindnessSplash", "rediscovered:RediscoveredPotion_DullnessSplash");
-        
         registerRediscoveredMob(EntityParrow.class, "ParrowRediscovered", PurpleArrowID);
         registerRediscoveredMob(EntityRediscoveredPotion.class, "PotionRediscovered", PotionID);
         registerRediscoveredMob(EntityMountableBlock.class, "EntityMountableBlockRediscovered", MountableBlockID);
